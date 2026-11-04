@@ -1,0 +1,251 @@
+
+.wedding-details {
+  background: #f5eee3;
+  color: #641f35;
+  overflow: hidden;
+  text-align: center;
+}
+
+.wedding-details h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(38px, 5vw, 55px);
+  font-weight: 500;
+  margin: 12px 0;
+}
+
+.section-eyebrow {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #b08b55;
+}
+
+.section-description {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px;
+  color: #806d62;
+  margin: 12px auto 35px;
+  padding: 0 15px;
+}
+
+/* COUNTDOWN */
+
+.countdown-section {
+  background: #641f35;
+  color: #fffaf2;
+  padding: 85px 20px;
+}
+
+.countdown-section h2 {
+  color: #f5eee3;
+}
+
+.countdown-section .section-description {
+  color: #e4d4c4;
+}
+
+.countdown-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 45px;
+}
+
+.countdown-box {
+  width: 115px;
+  height: 120px;
+  border: 1px solid #c6a46a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.countdown-box strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 48px;
+  font-weight: 500;
+  color: #e3c58e;
+}
+
+.countdown-box span {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.countdown-decoration {
+  color: #c6a46a;
+  margin-top: 35px;
+  font-size: 25px;
+}
+
+/* VENUE */
+
+.venue-section {
+  padding: 90px 20px;
+}
+
+.venue-grid {
+  max-width: 900px;
+  margin: 45px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.venue-card {
+  background: #fffaf2;
+  border: 1px solid #ddcba9;
+  padding: 45px 25px;
+  transition: 0.3s ease;
+}
+
+.venue-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(69, 19, 35, 0.08);
+}
+
+.venue-icon {
+  font-size: 30px;
+  color: #c6a46a;
+}
+
+.venue-time {
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #b08b55;
+  margin-top: 20px;
+}
+
+.venue-card h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 34px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+.venue-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 21px;
+}
+
+.venue-address {
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #806d62;
+  margin: 12px 0 25px;
+}
+
+.direction-button {
+  display: inline-block;
+  background: #641f35;
+  color: #fffaf2;
+  text-decoration: none;
+  padding: 14px 24px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  transition: 0.3s ease;
+}
+
+.direction-button:hover {
+  background: #451323;
+}
+
+/* TESTIMONIES */
+
+.testimonies-section {
+  background: #eee2d2;
+  padding: 90px 20px;
+}
+
+.testimony-grid {
+  max-width: 1100px;
+  margin: 45px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.testimony-card {
+  background: #fffaf2;
+  border: 1px solid #ddcba9;
+  padding: 35px 25px;
+  text-align: center;
+}
+
+.quote-mark {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 65px;
+  line-height: 0.8;
+  color: #c6a46a;
+}
+
+.testimony-message {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 19px;
+  line-height: 1.7;
+  color: #725b50;
+  min-height: 145px;
+}
+
+.testimony-divider {
+  width: 45px;
+  height: 1px;
+  background: #c6a46a;
+  margin: 20px auto;
+}
+
+.testimony-card h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 23px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.relationship {
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #b08b55;
+  margin-top: 8px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+  .venue-grid,
+  .testimony-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .countdown-grid {
+    gap: 10px;
+  }
+
+  .countdown-box {
+    width: 76px;
+    height: 95px;
+  }
+
+  .countdown-box strong {
+    font-size: 35px;
+  }
+
+  .countdown-box span {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .testimony-message {
+    min-height: auto;
+  }
+}

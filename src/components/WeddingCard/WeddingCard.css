@@ -1,0 +1,214 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap');
+
+:root {
+  --burgundy: #641f35;
+  --deep-burgundy: #451323;
+  --champagne: #c6a46a;
+  --beige: #f5eee3;
+  --cream: #fffaf2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.invitation-section {
+  min-height: 100vh;
+  background: var(--beige);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.invitation-card {
+  width: 100%;
+  max-width: 620px;
+  padding: 14px;
+  background: var(--champagne);
+  box-shadow: 0 20px 60px rgba(69, 19, 35, 0.18);
+}
+
+.card-border {
+  position: relative;
+  text-align: center;
+  padding: 65px 35px;
+  background: var(--cream);
+  border: 1px solid var(--champagne);
+  outline: 1px solid var(--champagne);
+  outline-offset: -9px;
+  color: var(--burgundy);
+}
+
+.card-ornament,
+.bottom-ornament {
+  display: block;
+  color: var(--champagne);
+  font-size: 28px;
+}
+
+.eyebrow,
+.date-label,
+.event-details h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 500;
+}
+
+.eyebrow {
+  margin-top: 30px;
+}
+
+.invitation-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  line-height: 2;
+  letter-spacing: 2px;
+  margin: 25px 0;
+  color: #826b5d;
+}
+
+.names {
+  margin: 30px 0;
+}
+
+.names h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(46px, 9vw, 72px);
+  line-height: 0.95;
+  font-weight: 500;
+  margin: 0;
+  color: var(--burgundy);
+}
+
+.ampersand {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-style: italic;
+  color: var(--champagne);
+  margin: 5px 0;
+}
+
+.gold-line {
+  width: 120px;
+  height: 1px;
+  background: var(--champagne);
+  margin: 35px auto;
+  position: relative;
+}
+
+.gold-line span {
+  position: absolute;
+  background: var(--cream);
+  color: var(--champagne);
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 10px;
+  font-size: 20px;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 25px 0 35px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.date strong {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 54px;
+  font-weight: 500;
+  color: var(--burgundy);
+}
+
+.event-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+  margin: 35px 0;
+}
+
+.event-details h3 {
+  color: var(--champagne);
+}
+
+.event-details p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  margin: 5px 0;
+}
+
+.vertical-line {
+  height: 65px;
+  width: 1px;
+  background: var(--champagne);
+}
+
+.closing {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  line-height: 2;
+  color: #826b5d;
+  margin: 35px 0;
+}
+
+.rsvp-button {
+  display: inline-block;
+  background: var(--burgundy);
+  color: var(--cream);
+  text-decoration: none;
+  padding: 15px 35px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  transition: 0.3s ease;
+}
+
+.rsvp-button:hover {
+  background: var(--deep-burgundy);
+  transform: translateY(-3px);
+}
+
+.footer-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  margin-top: 35px;
+}
+
+.bottom-ornament {
+  margin-top: 30px;
+}
+
+@media (max-width: 480px) {
+  .card-border {
+    padding: 50px 20px;
+  }
+
+  .event-details {
+    gap: 15px;
+  }
+
+  .event-details p {
+    font-size: 14px;
+  }
+
+  .date {
+    gap: 10px;
+    font-size: 8px;
+  }
+
+  .date strong {
+    font-size: 43px;
+  }
+}
