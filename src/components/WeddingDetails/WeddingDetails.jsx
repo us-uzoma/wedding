@@ -90,10 +90,10 @@ export default function WeddingDetails() {
             <h3>The Ceremony</h3>
             <p className="venue-name">Deeper Christain Life Ministry Headquarters.</p>
             <p className="venue-address">
-              Nnarambia Ahiara Junction, Ahiazu Mbaise, Imo State.
+              Ahiara Junction Close to Access Bank, Ahiazu Mbaise, Imo State.
             </p>
             <a
-              href="https://www.google.com/maps/search/?api=1&query=St+Peters+Cathedral"
+              href="https://www.google.com/maps/search/?api=1&query=5.52207%2C7.26794"
               target="_blank"
               rel="noreferrer"
               className="direction-button"
@@ -111,7 +111,7 @@ export default function WeddingDetails() {
               Egberede Nguru Aboh-Mbaise L.G.A. Imo State.
             </p>
             <a
-              href="https://www.google.com/maps/search/?api=1&query=The+Grand+Ballroom"
+              href="https://www.google.com/maps/search/?api=1&query=5.52207%2C7.26794"
               target="_blank"
               rel="noreferrer"
               className="direction-button"
