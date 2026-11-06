@@ -177,7 +177,7 @@ export default function WeddingGallery() {
           </p>
 
           <a href="#guest-uploads" className="gallery-upload-link">
-            SHARE YOUR MEMORIES <span>↗</span>
+            SHARE YOUR MEMORIES <span>♥</span>
           </a>
 
         </div>

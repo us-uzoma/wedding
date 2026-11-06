@@ -3,7 +3,7 @@ import WeddingCard from './components/WeddingCard/WeddingCard'
 import WeddingDetails from './components/WeddingDetails/WeddingDetails'
 import WeddingRSVP from './components/WeddingRSVP/WeddingRSVP'
 import RSVP from './components/RSVP'
-import GuestUploads from './components/GuestUploads'
+import GuestUploads from './components/GuestUploads/GuestUploads'
 import WeddingGallery from './components/WeddingGallery/WeddingGallery'
 
 
@@ -15,8 +15,10 @@ const App = () => {
       <WeddingDetails />
       {/* <WeddingRSVP /> */}
       <RSVP />
-      <GuestUploads />
       <WeddingGallery />
+      <section id="guest-uploads">
+        <GuestUploads />
+      </section>
 
 
     </div>
