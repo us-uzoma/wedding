@@ -1,5 +1,5 @@
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import './GuestUploads.css'
 
@@ -12,6 +12,13 @@ export default function GuestUploads() {
   const [dragging, setDragging] = useState(false)
 
   const fileInputRef = useRef(null)
+  const previewUrl = file ? URL.createObjectURL(file) : null
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl)
+    }
+  }, [previewUrl])
 
   function selectFile(selectedFile) {
     setMessage('')
@@ -41,10 +48,6 @@ export default function GuestUploads() {
     setFile(selectedFile)
   }
 
-  function handleFileChange(e) {
-    selectFile(e.target.files?.[0])
-  }
-
   function handleDrop(e) {
     e.preventDefault()
     setDragging(false)
@@ -54,20 +57,21 @@ export default function GuestUploads() {
   async function handleUpload(e) {
     e.preventDefault()
 
-    if (!file || !guestName.trim()) {
+    if (!file || guestName.trim().length < 2) {
       setError('Please enter your name and select a file.')
       return
     }
 
     setLoading(true)
-    setMessage('')
     setError('')
+    setMessage('')
 
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
 
     const filePath =
       `${Date.now()}-${crypto.randomUUID()}-${safeName}`
 
+    // 1. Upload the actual file
     const { error: uploadError } = await supabase.storage
       .from('wedding-gallery')
       .upload(filePath, file, {
@@ -75,13 +79,33 @@ export default function GuestUploads() {
         upsert: false
       })
 
-    setLoading(false)
-
     if (uploadError) {
-      setError('Upload failed. Please check your connection and try again.')
+      setLoading(false)
+      setError('File upload failed. Please try again.')
       return
     }
 
+    // 2. Save the guest name and file details
+    const { error: recordError } = await supabase
+      .from('wedding_memories')
+      .insert([{
+        uploader_name: guestName.trim(),
+        file_path: filePath,
+        media_type: file.type.startsWith('video/')
+          ? 'video'
+          : 'image'
+      }])
+
+    setLoading(false)
+
+    if (recordError) {
+      setError(
+        'Your file uploaded, but its details could not be saved. Please contact the couple.'
+      )
+      return
+    }
+
+    // 3. Display success
     setMessage(
       `Thank you, ${guestName.trim()}! Your memory has been shared successfully.`
     )
@@ -94,18 +118,12 @@ export default function GuestUploads() {
     }
   }
 
-  const isVideo = file?.type.startsWith('video/')
-  const previewUrl = file ? URL.createObjectURL(file) : null
-
   return (
     <section className="guest-upload-section" id="guest-uploads">
 
       <div className="guest-upload-container">
 
-        {/* HEADING */}
-
         <div className="guest-upload-heading">
-
           <span className="guest-upload-overline">
             HELP US MAKE THESE MEMORIES LAST FOREVER
           </span>
@@ -124,13 +142,10 @@ export default function GuestUploads() {
 
           <p>
             Did you capture a beautiful moment at our wedding?
-            We would love to see it. Share your photographs and
-            videos with us so we can treasure every memory.
+            Share your photographs and videos with us so we can
+            treasure every memory.
           </p>
-
         </div>
-
-        {/* UPLOAD CARD */}
 
         <div className="guest-upload-card">
 
@@ -142,8 +157,6 @@ export default function GuestUploads() {
 
           <form onSubmit={handleUpload}>
 
-            {/* NAME */}
-
             <div className="upload-field">
               <label>Your Name *</label>
 
@@ -151,22 +164,21 @@ export default function GuestUploads() {
                 type="text"
                 placeholder="Enter your full name"
                 value={guestName}
-                onChange={(e) => setGuestName(e.target.value)}
+                onChange={e => setGuestName(e.target.value)}
                 required
+                minLength={2}
                 maxLength={100}
               />
             </div>
-
-            {/* FILE UPLOAD */}
 
             <div className="upload-field">
               <label>Choose Your Photo or Video *</label>
 
               <div
-                className={`upload-dropzone ${dragging ? 'dragging' : ''} ${
-                  file ? 'has-file' : ''
-                }`}
-                onDragOver={(e) => {
+                className={`upload-dropzone ${
+                  dragging ? 'dragging' : ''
+                } ${file ? 'has-file' : ''}`}
+                onDragOver={e => {
                   e.preventDefault()
                   setDragging(true)
                 }}
@@ -175,7 +187,7 @@ export default function GuestUploads() {
                 onClick={() => fileInputRef.current?.click()}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => {
+                onKeyDown={e => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
                     fileInputRef.current?.click()
@@ -186,41 +198,33 @@ export default function GuestUploads() {
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,video/webm"
-                  onChange={handleFileChange}
                   hidden
+                  accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,video/webm"
+                  onChange={e => selectFile(e.target.files?.[0])}
                 />
 
                 {!file ? (
-
                   <>
-                    <div className="upload-icon">
-                      <span>↑</span>
-                    </div>
-
+                    <div className="upload-icon">↑</div>
                     <h4>Drop your memories here</h4>
-
                     <p>
                       or <span>browse files</span> from your device
                     </p>
-
                     <small>
                       JPG, PNG, WEBP, MP4, MOV or WEBM · Maximum 50 MB
                     </small>
                   </>
-
                 ) : (
-
                   <div className="upload-preview">
 
-                    {isVideo ? (
+                    {file.type.startsWith('video/') ? (
                       <video
                         src={previewUrl}
                         controls
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={e => e.stopPropagation()}
                       />
                     ) : (
-                      <img src={previewUrl} alt="Selected wedding memory" />
+                      <img src={previewUrl} alt="Selected memory" />
                     )}
 
                     <div className="selected-file-info">
@@ -233,7 +237,7 @@ export default function GuestUploads() {
                     <button
                       type="button"
                       className="remove-file"
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation()
                         setFile(null)
                         if (fileInputRef.current) {
@@ -243,20 +247,16 @@ export default function GuestUploads() {
                     >
                       Remove file
                     </button>
-
                   </div>
-
                 )}
 
               </div>
             </div>
 
-            {/* FEEDBACK */}
-
             {message && (
               <div className="upload-success">
-                <span>♥</span>
-                {message}
+                ♥
+                <p>{message}</p>
               </div>
             )}
 
@@ -265,8 +265,6 @@ export default function GuestUploads() {
                 {error}
               </div>
             )}
-
-            {/* SUBMIT */}
 
             <button
               type="submit"

@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase'
 import './WeddingGallery.css'
 
 export default function WeddingGallery() {
-  const [files, setFiles] = useState([])
+  const [memories, setMemories] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -12,32 +12,28 @@ export default function WeddingGallery() {
     setLoading(true)
     setError('')
 
-    const { data, error } = await supabase.storage
-      .from('wedding-gallery')
-      .list('', {
-        limit: 100,
-        sortBy: { column: 'created_at', order: 'desc' }
-      })
+    const { data, error } = await supabase
+      .from('wedding_memories')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(100)
 
     if (error) {
-      setError('We could not load the wedding memories. Please try again.')
-      setFiles([])
+      setError('We could not load the wedding memories.')
+      setMemories([])
     } else {
-      setFiles(
-        (data || [])
-          .filter(file => file.name && !file.name.startsWith('.'))
-          .map(file => {
-            const { data: publicData } = supabase.storage
-              .from('wedding-gallery')
-              .getPublicUrl(file.name)
+      const formattedMemories = data.map(memory => {
+        const { data: publicData } = supabase.storage
+          .from('wedding-gallery')
+          .getPublicUrl(memory.file_path)
 
-            return {
-              ...file,
-              url: publicData.publicUrl,
-              isVideo: /\.(mp4|mov|webm)$/i.test(file.name)
-            }
-          })
-      )
+        return {
+          ...memory,
+          url: publicData.publicUrl
+        }
+      })
+
+      setMemories(formattedMemories)
     }
 
     setLoading(false)
@@ -52,10 +48,7 @@ export default function WeddingGallery() {
 
       <div className="gallery-container">
 
-        {/* HEADING */}
-
         <div className="gallery-heading">
-
           <span className="gallery-overline">
             THE BEAUTY OF OUR SPECIAL DAY
           </span>
@@ -77,10 +70,7 @@ export default function WeddingGallery() {
             a memory. Browse the beautiful moments from
             our celebration.
           </p>
-
         </div>
-
-        {/* GALLERY */}
 
         {loading ? (
 
@@ -96,7 +86,7 @@ export default function WeddingGallery() {
             <button onClick={loadGallery}>Try again</button>
           </div>
 
-        ) : files.length === 0 ? (
+        ) : memories.length === 0 ? (
 
           <div className="gallery-empty">
             <span>♡</span>
@@ -111,34 +101,27 @@ export default function WeddingGallery() {
 
           <div className="wedding-gallery-grid">
 
-            {files.map((file, index) => (
+            {memories.map((memory, index) => (
 
-              <div
-                className="gallery-item"
-                key={file.name}
-                style={{ '--item-index': index }}
-              >
+              <div className="gallery-item" key={memory.id}>
 
-                {file.isVideo ? (
-
+                {memory.media_type === 'video' ? (
                   <video
-                    src={file.url}
+                    src={memory.url}
                     controls
                     preload="metadata"
                     playsInline
                   />
-
                 ) : (
-
                   <a
-                    href={file.url}
+                    href={memory.url}
                     target="_blank"
                     rel="noreferrer"
                     className="gallery-image-link"
                   >
                     <img
-                      src={file.url}
-                      alt="Wedding celebration memory"
+                      src={memory.url}
+                      alt={`Wedding memory shared by ${memory.uploader_name}`}
                       loading="lazy"
                     />
 
@@ -146,12 +129,17 @@ export default function WeddingGallery() {
                       <span>♡</span>
                     </div>
                   </a>
-
                 )}
 
                 <div className="gallery-item-caption">
-                  <span>MEMORY NO. {index + 1}</span>
-                  <span>♥</span>
+                  <div>
+                    <span>Shared by {memory.uploader_name}</span>
+                    <strong>Shared by {memory.uploader_name}</strong>
+                  </div>
+
+                  <span>
+                    {memory.media_type === 'video' ? 'VIDEO' : 'PHOTO'}
+                  </span>
                 </div>
 
               </div>
@@ -159,13 +147,9 @@ export default function WeddingGallery() {
             ))}
 
           </div>
-
         )}
 
-        {/* GUEST INVITATION */}
-
         <div className="gallery-invitation">
-
           <div className="gallery-invitation-icon">♡</div>
 
           <h3>Were You Part of Our Day?</h3>
@@ -177,9 +161,8 @@ export default function WeddingGallery() {
           </p>
 
           <a href="#guest-uploads" className="gallery-upload-link">
-            SHARE YOUR MEMORIES <span>♥</span>
+            SHARE YOUR MEMORIES <span>↗</span>
           </a>
-
         </div>
 
       </div>
