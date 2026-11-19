@@ -39,13 +39,13 @@ export default function WeddingDetails() {
     },
     {
       name: "Grace",
-      relationship: "Bride's Paddy",
+      relationship: "Bride's Bestie",
       message:
         "Having you as a friend turned sister has been one of the sweetest blessings life has given me. Seeing you step into this chapter fills my heart with so much happiness. You deserve a love that brings you joy, peace and everything beautiful. May your marriage be filled with friendship and endless laughter.",
     },
     {
       name: "Richard",
-      relationship: "Grom Friend",
+      relationship: "Groom's Friend",
       message:
         "May this beautiful beginning lead to a lifetime of wonderful memories. May every new chapter bring you closer together.",
     },
