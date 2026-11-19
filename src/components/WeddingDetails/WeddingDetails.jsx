@@ -32,20 +32,20 @@ export default function WeddingDetails() {
 
   const testimonials = [
     {
+      name: "Beulah",
+      relationship: "Bride's Kid Sis",
+      message:
+        "I wish you both a lifetime of happiness, friendship and a love that never fades. May your forever be sweeter than your wedding day. So Solomon finally found his Peace, wahala for singles.",
+    },
+    {
       name: "Grace",
-      relationship: "Bride's Best Friend",
+      relationship: "Bride's Paddy",
       message:
-        "Watching you both grow together has been one of life's greatest blessings. May your home always be filled with laughter, patience and endless love.",
+        "Having you as a friend turned sister has been one of the sweetest blessings life has given me. Seeing you step into this chapter fills my heart with so much happiness. You deserve a love that brings you joy, peace and everything beautiful. May your marriage be filled with friendship and endless laughter.",
     },
     {
-      name: "Oluwasegun Adesanya",
-      relationship: "Groom's Friend",
-      message:
-        "I have seen the friendship, the laughter and the beautiful bond you share. You two remind us that true love is worth celebrating.",
-    },
-    {
-      name: "Stan",
-      relationship: "Family Friend",
+      name: "Richard",
+      relationship: "Grom Friend",
       message:
         "May this beautiful beginning lead to a lifetime of wonderful memories. May every new chapter bring you closer together.",
     },
