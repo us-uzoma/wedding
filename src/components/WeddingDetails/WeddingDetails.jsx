@@ -47,7 +47,7 @@ export default function WeddingDetails() {
       name: "Richard",
       relationship: "Groom's Friend",
       message:
-        "May this beautiful beginning lead to a lifetime of wonderful memories. May every new chapter bring you closer together.",
+        "From all the banter, gbas-gbos and friendly mischief, it's beautiful to see you find your forever person. May your union be a blend of Solomon's wisdom and Peace's tranquillity.",
     },
   ];
 
