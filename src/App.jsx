@@ -15,10 +15,8 @@ const App = () => {
       <WeddingDetails />
       {/* <WeddingRSVP /> */}
       <RSVP />
-      <WeddingGallery />
-      <section id="guest-uploads">
-        <GuestUploads />
-      </section>
+      {/* <WeddingGallery /> */}
+      {/* <section id="guest-uploads"><GuestUploads /></section> */}
 
 
     </div>
