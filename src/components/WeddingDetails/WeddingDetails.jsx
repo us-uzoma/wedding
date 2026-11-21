@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "./WeddingDetails.css";
 
-const weddingDate = new Date("2026-12-05T10:00:00");
+const weddingDate = new Date("2026-12-05T00:00:00");
 
 function getTimeLeft() {
   const difference = weddingDate.getTime() - Date.now();
